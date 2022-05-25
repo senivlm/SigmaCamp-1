@@ -10,6 +10,12 @@ namespace Assignment2
     {
         #region Fields
         private int[,] _matrix;
+
+        public enum Modes
+        {
+            StartDown,
+            StartRight
+        }
         #endregion
 
         #region Constructors
@@ -41,50 +47,41 @@ namespace Assignment2
 
         public void DiagonalSnakeFill(Modes mode)
         {
-            int counter = 1;
-            int[] deltas = { (int)(-1 * Math.Pow(-1, (mode == Modes.StartRight ? 0 : 1))), (int)Math.Pow(-1, (mode == Modes.StartRight ? 0 : 1)) };
-            int[] indexes = { 0, 0 };
-            int[] boundaries = { _matrix.GetLength(0), _matrix.GetLength(1), -1, -1 };
-
-            while (counter <= _matrix.Length)
+            int[] contentArr = new int[_matrix.Length];
+            int contentArrIndex = 0;
+            for (int i = 0; i < _matrix.Length; i++)
             {
-                _matrix[indexes[0], indexes[1]] = counter++;
-                if (!CheckCollisions(indexes, boundaries, deltas, mode))
+                contentArr[i] = i;
+            }
+
+
+            for (int i = 0; i < 2 * _matrix.GetLength(0); i++)
+            {
+                int j;
+                bool increment;
+                if (i % 2 == Convert.ToInt32(mode))
                 {
-                    for (int i = 0; i < 2; i++)
+                    j = 0;
+                    increment = true;
+                }
+                else
+                {
+                    j = i;
+                    increment = false;
+                }
+                while (j >= 0 && j <= i)
+                {
+                    if (j < _matrix.GetLength(0) && (i - j) < _matrix.GetLength(1))
                     {
-                        indexes[i] += deltas[i];
+                        _matrix[j, i - j] = contentArr[contentArrIndex++];
                     }
+                    if (increment)
+                        j++;
+                    else
+                        j--;
                 }
             }
-        }
 
-        public enum Modes
-        {
-            StartRight = 0,
-            StartDown = 1
-        }
-
-        private static bool CheckCollision(ref int comparedIndex, int boundary, ref int anotherIndex, ref int cDelta,
-            ref int aDelta)
-        {
-            if (comparedIndex + cDelta != boundary) return false;
-            anotherIndex++;
-            cDelta *= -1;
-            aDelta *= -1;
-            return true;
-        }
-
-        private static bool CheckCollisions(int[] indexes, int[] boundaries, int[] deltas, Modes mode)
-        {
-            for (int ctr = 0; ctr < 4; ctr++)
-            {
-                int i = ctr + (mode == Modes.StartDown ? 1 : 0) * (int)Math.Pow(-1, ctr % 2);
-                if (CheckCollision(ref indexes[i % 2], boundaries[i], ref indexes[(i + 1) % 2], ref deltas[i % 2],
-                        ref deltas[(i + 1) % 2])) return true;
-            }
-
-            return false;
         }
 
         public override string ToString()
