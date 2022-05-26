@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment3
+namespace Assignment4
 {
     internal class Vector
     {
@@ -27,6 +27,7 @@ namespace Assignment3
         public Vector() { }
         #endregion
 
+
         #region Methods
         public int this[int index]
         {
@@ -47,6 +48,11 @@ namespace Assignment3
             }
         }
 
+        public int GetLength()
+        {
+            return arr.Length;
+        }
+
         public void RandomInitialization(int a, int b)
         {
             Random random = new Random();
@@ -58,7 +64,7 @@ namespace Assignment3
 
         public void InitShuffle()
         {
-            
+
             int[] temp = new int[arr.Length];
             int randIndex;
             Random myRandomizer = new Random();
@@ -78,30 +84,54 @@ namespace Assignment3
                 temp[randIndex] = 0;
             }
 
-            //Random random = new Random();
-            //int x;
-            //for (int i = 0; i < arr.Length; i++)
-            //{
-            //    while (arr[i] == 0)
-            //    {
-            //        x = random.Next(1, arr.Length + 1);
-            //        bool isExist = false;
-            //        for (int j = 0; j < i; j++)
-            //        {
-            //            if (x == arr[j])
-            //            {
-            //                isExist = true;
-            //                break;
-            //            }
-            //        }
-            //        if (!isExist)
-            //        {
-            //            arr[i] = x;
-            //            break;
-            //        }
-            //    }
-            //}
+
         }
+
+        #region  QuickSortRegion
+        public enum PivotType
+        {
+            First,
+            Middle, 
+            Last
+        }
+
+        public void QuickSort( PivotType pivotType, int lb, int ub)
+        {
+            if (ub - lb >= 1)
+            {
+                int mid = PivotPartition(pivotType, lb, ub);
+                QuickSort(pivotType, lb, mid - 1);
+                QuickSort(pivotType, mid + 1, ub);
+            }
+        }
+        private int PivotPartition(PivotType pivotType, int lb, int ub)
+        {
+            int start = lb;
+            int end = ub;
+
+            int pivotIndex = pivotType switch
+            {
+                PivotType.First => lb,
+                PivotType.Middle => (lb + ub) / 2,
+                PivotType.Last => ub,
+            };
+            int part = arr[pivotIndex];
+            SwapElements( pivotIndex, ub);
+            while (start < end)
+            {
+                while (arr[start] < part && start < ub)
+                    start++;
+                while (arr[end] >= part && end > lb)
+                    end--;
+                if (start < end)
+                {
+                    SwapElements(start, end);
+                }
+            }
+            SwapElements( start, ub);
+            return start;
+        }
+        #endregion
 
         public Pair[] CalculateFreq()
         {
@@ -158,11 +188,15 @@ namespace Assignment3
         {
             for (int i = 0; i < arr.Length / 2; i++)
             {
-                int temp = arr[i];
-                arr[i] = arr[arr.Length - 1 - i];
-                arr[arr.Length - 1 - i] = temp;
+                SwapElements(i, arr.Length - 1 - i);
                 //arr.Reverse();
             }
+        }
+        public void SwapElements(int ind1, int ind2)
+        {
+            int temp = arr[ind1];
+            arr[ind1] = arr[ind2];
+            arr[ind2] = temp;
         }
 
         //returns start index of sequence and it`s length

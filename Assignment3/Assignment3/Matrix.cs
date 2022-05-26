@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment2
+namespace Assignment3
 {
     internal class Matrix
     {
@@ -47,13 +47,7 @@ namespace Assignment2
 
         public void DiagonalSnakeFill(Modes mode)
         {
-            int[] contentArr = new int[_matrix.Length];
             int contentArrIndex = 0;
-            for (int i = 0; i < _matrix.Length; i++)
-            {
-                contentArr[i] = i;
-            }
-
 
             for (int i = 0; i < 2 * _matrix.GetLength(0); i++)
             {
@@ -73,7 +67,7 @@ namespace Assignment2
                 {
                     if (j < _matrix.GetLength(0) && (i - j) < _matrix.GetLength(1))
                     {
-                        _matrix[j, i - j] = contentArr[contentArrIndex++];
+                        _matrix[j, i - j] = contentArrIndex++;
                     }
                     if (increment)
                         j++;

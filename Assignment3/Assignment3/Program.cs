@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assignment2
+namespace Assignment3
 {
     internal class Program
     {
