@@ -48,7 +48,7 @@ namespace Assignment3
         public void DiagonalSnakeFill(Modes mode)
         {
             int contentArrIndex = 0;
-
+            // Кількість ліній має бути на 1 меншою
             for (int i = 0; i < 2 * _matrix.GetLength(0); i++)
             {
                 int j;
