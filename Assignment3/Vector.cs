@@ -151,6 +151,7 @@ namespace Assignment3
             {
                 if (arr[i] != arr[arr.Length - 1 - i])
                     res = false;
+                // треба перервати цикл
             }
             return res;
         }
@@ -175,6 +176,7 @@ namespace Assignment3
             {
                 int j = 1;
                 int curSeqLength = 1;
+                // Вихід за межі масиву
                 while (arr[i] == arr[i + j])
                 {
                     curSeqLength++;
