@@ -108,7 +108,7 @@ namespace Assignment4
         {
             int start = lb;
             int end = ub;
-
+// Неправильний синтаксис switch
             int pivotIndex = pivotType switch
             {
                 PivotType.First => lb,
