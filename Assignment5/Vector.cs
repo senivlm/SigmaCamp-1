@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Assignment5
 {
     internal class Vector
-    {
+    {Не знайшла реалізації для файлів алгоритмом злиття, а також пірамідальним сортуванням
         #region Fields
         int[] arr;
 
