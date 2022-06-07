@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Assignment5
 {
     internal class Program
-    {
+    {//Де реалізація?
         static void Main(string[] args)
         {
             int length = 25;
