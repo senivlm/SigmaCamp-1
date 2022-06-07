@@ -100,6 +100,7 @@ namespace Assignment4
             if (ub - lb >= 1)
             {
                 int mid = PivotPartition(pivotType, lb, ub);
+                // Чому 1 елемент випадає?
                 QuickSort(pivotType, lb, mid - 1);
                 QuickSort(pivotType, mid + 1, ub);
             }
@@ -108,7 +109,7 @@ namespace Assignment4
         {
             int start = lb;
             int end = ub;
-
+//  ??
             int pivotIndex = pivotType switch
             {
                 PivotType.First => lb,
